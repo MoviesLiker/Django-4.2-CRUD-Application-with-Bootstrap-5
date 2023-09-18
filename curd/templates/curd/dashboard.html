@@ -1,0 +1,40 @@
+{% extends "layouts/app.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block container %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
+            {% endfor %}
+            {% endif %}
+            <div class="card">
+                <div class="card-body">
+                    <h3>Add Form</h3>
+                    <hr>
+                    <form action="{% url 'curd:curd_submit' %}" method="post">
+                        {% csrf_token %}
+                        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+                        <div class="col-md-12 mt-4">
+                            <label class="form-label">Name</label>
+                            <input type="text" class="form-control" name="name">
+                        </div>
+                        <div class="col-md-12 mt-4">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" name="email">
+                        </div>
+                        <div class="col-md-12 my-4">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% include "inc/view.html" %}
+    </div>
+</div>
+{% endblock %}
